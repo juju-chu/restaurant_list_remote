@@ -4,7 +4,7 @@ const expressHandlebars = require('express-handlebars')
 const mongoose = require('mongoose')
 
 const port = 3000
-const restaurantList = require('./models/restaurant.js')
+const Restaurant = require('./models/restaurant.js')
 
 mongoose.connect('mongodb://localhost/restaurant_list', {
   useNewUrlParser: true,
@@ -25,14 +25,18 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList.results })
+  Restaurant.find()
+    .lean()
+    .then((restaurants) => res.render('index', { restaurants }))
+    .catch((error) => console.log(error))
 })
 
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = restaurantList.results.find(
-    (restaurant) => restaurant.id.toString() === req.params.restaurant_id
-  )
-  res.render('show', { restaurant })
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('show', { restaurant }))
+    .catch((error) => console.log(error))
 })
 
 app.get('/search', (req, res) => {
