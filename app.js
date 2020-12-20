@@ -44,6 +44,14 @@ app.get('/restaurants/:id', (req, res) => {
     .catch((error) => console.log(error))
 })
 
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('edit', { restaurant })) // 要用 render　就要先跑過 .lean()
+    .catch((error) => console.log(error))
+})
+
 app.get('/search', (req, res) => {
   const restaurants = restaurantList.results.filter((restaurant) => {
     return (
@@ -68,6 +76,24 @@ app.post('/restaurants', (req, res) => {
     description: info.description,
   })
     .then(() => res.redirect('/'))
+    .catch((error) => console.log(error))
+})
+
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  const info = req.body
+  return Restaurant.findById(id)
+    .then((restaurant) => {
+      restaurant.name = info.name
+      restaurant.category = info.category
+      restaurant.image = info.image
+      restaurant.location = info.location
+      restaurant.phone = info.phone
+      restaurant.rating = info.rating
+      restaurant.description = info.description
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${id}`))
     .catch((error) => console.log(error))
 })
 

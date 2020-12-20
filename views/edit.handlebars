@@ -1,0 +1,54 @@
+<form action="/restaurants/{{ restaurant._id }}/edit" method="POST">
+  {{!-- <input type="text" placeholder="name" name="name" value="{{ todo.name }}">
+  <button type="submit">Save</button>
+  <a href="/">back</a> --}}
+
+  <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">餐廳</span>
+      </div>
+      <input type="text" class="form-control" name="name" value="{{ restaurant.name }}">
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">類別</span>
+      </div>
+      <input type="text" class="form-control" name="category" value="{{ restaurant.category }}">
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">圖片</span>
+      </div>
+      <input type="text" class="form-control" name="image" value="{{ restaurant.image }}">
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">地址</span>
+      </div>
+      <input type="text" class="form-control" name="location" value="{{ restaurant.location }}">
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">電話</span>
+      </div>
+      <input type="text" class="form-control" name="phone" value="{{ restaurant.phone }}">
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">評分</span>
+      </div>
+      <input type="text" class="form-control" name="rating" value="{{ restaurant.rating }}">
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">描述</span>
+      </div>
+      <input type="text" class="form-control" name="description" value="{{ restaurant.description }}">
+    </div>
+
+    <div class="d-flex flex-row-reverse">
+      <button type="submit" class="btn btn-primary mt-3">儲存</button>
+    </div>
+
+    <a href="/">返回</a>
+</form>
