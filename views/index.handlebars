@@ -20,7 +20,7 @@
     
     <form action="/sort" method="POST" class="col-md-2 col-sm-4">
       <select class="form-control" onchange="this.form.submit()" name="sort" id="sort">
-        <option>--- 排序 ---</option>
+        <option value="default" {{#compare sortResult "default" }} selected {{/compare}}>--- 排序 ---</option>
         <option value="name-asc" {{#compare sortResult "name-asc" }} selected {{/compare}} 
                                  {{#compare sort "name-asc" }} selected {{/compare}}>A->Z</option>
         <option value="name-desc" {{#compare sortResult "name-desc" }} selected {{/compare}}
