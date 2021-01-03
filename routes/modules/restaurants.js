@@ -24,32 +24,16 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const info = req.body
-  return Restaurant.create({
-    name: info.name,
-    category: info.category,
-    image: info.image,
-    location: info.location,
-    phone: info.phone,
-    rating: info.rating,
-    description: info.description,
-  })
+  return Restaurant.create(req.body)
     .then(() => res.redirect('/'))
     .catch((error) => console.log(error))
 })
 
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  const info = req.body
   return Restaurant.findById(id)
     .then((restaurant) => {
-      restaurant.name = info.name
-      restaurant.category = info.category
-      restaurant.image = info.image
-      restaurant.location = info.location
-      restaurant.phone = info.phone
-      restaurant.rating = info.rating
-      restaurant.description = info.description
+      restaurant = Object.assign(restaurant, req.body)
       return restaurant.save()
     })
     .then(() => res.redirect(`/restaurants/${id}`))
